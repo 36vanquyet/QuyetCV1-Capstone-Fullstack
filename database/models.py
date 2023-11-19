@@ -34,19 +34,31 @@ db_drop_and_create_all()
 def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
-    movie = Movie(
+    movie1 = Movie(
         title='Harry Potter',
         release_date=date(2002, 1, 1)
     )
-    actor = Actor(
+    movie2 = Movie(
+        title='Godzilla Minus One',
+        release_date=date(2009, 1, 1)
+    )
+    actor1 = Actor(
         name='Daniel Radcliffe',
         age=34,
         gender='Male',
-        movie=movie
+        movie=movie1
+    )
+    actor2 = Actor(
+        name='Hamabe Minami',
+        age=23,
+        gender='Female',
+        movie=movie2
     )
 
-    movie.insert()
-    actor.insert()
+    movie1.insert()
+    movie2.insert()
+    actor1.insert()
+    actor2.insert()
 
 # Models
 

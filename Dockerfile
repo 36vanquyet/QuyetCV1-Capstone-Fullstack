@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.7-slim
 # Set up an app directory for your code
 COPY . /app
 WORKDIR /app
