@@ -31,7 +31,8 @@ def create_app(test=False):
 
     # Endpoints GET
     @app.route('/actors', methods=['GET'])
-    def get_actors():
+    @requires_auth(permission='get:actors')
+    def get_actors(payload):
         actors = Actor.query.all()
         actor_list = [actor.format() for actor in actors]
         return jsonify({
@@ -40,7 +41,8 @@ def create_app(test=False):
         }), 200
 
     @app.route('/movies', methods=['GET'])
-    def get_movies():
+    @requires_auth(permission='get:movies')
+    def get_movies(payload):
         movies = Movie.query.all()
         movie_list = [movie.format() for movie in movies]
         return jsonify({
