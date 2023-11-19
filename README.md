@@ -183,4 +183,219 @@ postgres://quyetcv1:geOGfT0WevH0cMo5itp2TUyYsLNtm3Ko@dpg-cld5nueg1b2c73f4b9u0-a.
 Endpoint Render URL: https://capston-fullstack.onrender.com
 
 ### Step 4: Test Server live
-Test with token Casting Assistant:
+
+#### Test with token Casting Assistant:
+![get_actors_with_assistant](./images/get_assistant.png)
+
+#### Test with token Casting Director:
+![get_movies_with_director](./images/get_director.png)
+
+#### Test with token Executive Producer:
+![delete_movies_with_ex_producer](./images/delete_ex_prodecer.png)
+
+#### Log Server
+![log_server](./images/Log_server.png)
+
+## Documentation
+### 1. API Reference
+URL host: http://localhost:5000/
+
+#### Endpoints
+`GET /actors`
+- Fetches a list of `actors` in the database
+- Permission required: `get:actors`
+- Request Arguments: `None`
+- Returns: An object with a single key, actors, that contains an array of actors objects.
+```
+{
+    "actors": [
+        {
+            "age": 34,
+            "gender": "Male",
+            "id": 1,
+            "name": "Daniel Radcliffe"
+        },
+        {
+            "age": 23,
+            "gender": "Female",
+            "id": 2,
+            "name": "Hamabe Minami"
+        }
+    ],
+    "success": true
+}
+```
+
+`GET /movies`
+- Fetches a list of `movies` in the database
+- Permission required: `get:movies`
+- Request Arguments: `None`
+- Returns: An object with a single key, movies, that contains an array of movies objects.
+```
+{
+    "movies": [
+        {
+            "id": 1,
+            "release_date": "Tue, 01 Jan 2002 00:00:00 GMT",
+            "title": "Harry Potter"
+        },
+        {
+            "id": 2,
+            "release_date": "Thu, 01 Jan 2009 00:00:00 GMT",
+            "title": "Godzilla Minus One"
+        }
+    ],
+    "success": true
+}
+```
+`POST /actors`
+- Creates a new `actor` in the database
+- Permission required: `post:actors`
+- Request Arguments: json
+```
+{
+    "name": <actor name>,
+    "age": <actor age>,
+    "gender": <actor gender>
+}
+```
+- Returns: An object with a single key, actors, that contains an array of actors objects.
+```
+{
+    "actors": [
+        {
+            "age": 24,
+            "gender": "male",
+            "id": 3,
+            "name": "QuyetCV1"
+        }
+    ],
+    "success": true
+}
+```
+
+`POST /movies`
+- Creates a new `movie` in the database
+- Permission required: `post:movies`
+- Request Arguments: json
+```
+{
+    "title": <movie title>,
+    "release_date": <release date movie>
+}
+```
+- Returns: An object with a single key, movies, that contains an array of movies objects.
+```
+{
+    "movies": [
+        {
+            "id": 3,
+            "release_date": "Thu, 01 Jan 2009 00:00:00 GMT",
+            "title": "Godzilla Minus One"
+        }
+    ],
+    "success": true
+}
+```
+
+`PATCH /actors/<id>`
+- Updates a new `actor` in the database
+- Permission required: `patch:actors`
+- Request Arguments: json
+```
+{
+    "name": <actor name>,
+    "age": <actor age>,
+    "gender": <actor gender>
+}
+```
+- Returns: An object with a single key, actors, that contains an array of actors objects.
+```
+{
+    "actors": [
+        {
+            "age": 24,
+            "gender": "male",
+            "id": 3,
+            "name": "QuyetCV1"
+        }
+    ],
+    "success": true
+}
+```
+
+`PATCH /movies/<id>`
+- Updates a new `movie` in the database
+- Permission required: `patch:movies`
+- Request Arguments: json
+```
+{
+    "title": <movie title>,
+    "release_date": <release date movie>
+}
+```
+- Returns: An object with a single key, movies, that contains an array of movies objects.
+```
+{
+    "movies": [
+        {
+            "id": 3,
+            "release_date": "Thu, 01 Jan 2009 00:00:00 GMT",
+            "title": "Godzilla Minus One"
+        }
+    ],
+    "success": true
+}
+```
+`DELETE /actors/<id>`
+- Deletes a `actor` in the database
+- Permission required: `delete:actors`
+- Request Arguments: `None`
+- Returns: An object with a single key, actors, that is a message notification.
+```
+{
+    "message": "Actor id=1 deleted successfully",
+    "success": true
+}
+```
+
+`DELETE /movies/<id>`
+- Deletes a `movies` in the database
+- Permission required: `delete:movies`
+- Request Arguments: `None`
+- Returns: An object with a single key, movies, that is a message notification.
+```
+{
+    "message": "Movie id=1 deleted successfully",
+    "success": true
+}
+```
+
+### 2. Error Handling
+Errors are returned as JSON objects in the following format:
+```
+{
+    "error": 404,
+    "message": "Movie with id 255 not found",
+    "success": false
+}
+```
+The API will return three error types when requests failed:
++ `400`: Bad Request
++ `401`: Unauthorized
++ `403`: Forbidden
++ `404`: Resource Not Found
++ `422`: Not Processable
+
+### 3. Users and Roles
+
+#### Casting Assistant
++ Can view actors and movies
+
+#### Casting Director
++ All permissions a Casting Assistant has and…
++ Add or delete an actor from the database Modify actors or movies
+
+#### Executive Producer
++ All permissions a Casting Director has and…
++ Add or delete a movie from the database
